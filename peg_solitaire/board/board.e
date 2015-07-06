@@ -52,67 +52,61 @@ feature -- Constructor
 	make_cross
 			-- Initialize a Cross board.
 		do
-			make_easy
-			set_statuses (1, 1, 3, 5, unoccupied_slot)
-			bta.templates.arrow_board_out
+			make_default
+			parse_slot_map (bta.templates.cross_board_out)
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				Current ~ bta.templates.cross_board
 		end
 
 	make_plus
 			-- Initialize a Plus board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			make_default
+			parse_slot_map (bta.templates.plus_board_out)
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				Current ~ bta.templates.plus_board
 		end
 
 	make_pyramid
 			-- Initialize a Pyramid board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			make_default
+			parse_slot_map (bta.templates.pyramid_board_out)
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				Current ~ bta.templates.pyramid_board
 		end
 
 	make_arrow
 			-- Initialize a Arrow board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			make_default
+			parse_slot_map (bta.templates.arrow_board_out)
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				Current ~ bta.templates.arrow_board
 		end
 
 	make_diamond
 			-- Initialize a Diamond board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			make_default
+			parse_slot_map (bta.templates.diamond_board_out)
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				Current ~ bta.templates.diamond_board
 		end
 
 	make_skull
 			-- Initialize a Skull board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			make_default
+			parse_slot_map (bta.templates.skull_board_out)
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				Current ~ bta.templates.skull_board
 		end
 
 feature -- Auxiliary Commands
@@ -157,6 +151,20 @@ feature -- Auxiliary Commands
 		end
 
 	parse_slot_map (map: STRING)
+			-- Parses a string of slots
+		require
+			valid_input:
+				map.split ('%N').count = 6 and
+				across map.split ('%N') as line_iter
+				all
+					line_iter.item.count = 7 and
+					across line_iter.item as character_iter
+					all
+						character_iter ~ unavailable_slot.out or else
+						character_iter ~ occupied_slot.out or else
+						character_iter ~ unoccupied_slot.out
+					end
+				end
 		local
 			r, c: INTEGER
 		do
@@ -166,8 +174,12 @@ feature -- Auxiliary Commands
 				across line_iterator.item as slot_iterator
 				loop
 					c := c + 1
-					if slot_iteratr.item ~ unavailable_slot.out then
-						
+					if slot_iterator.item ~ unavailable_slot.out then
+						set_status (r, c, unavailable_slot)
+					elseif  slot_iterator.item ~ occupied_slot.out then
+						set_status (r, c, occupied_slot)
+					elseif  slot_iterator.item ~ unoccupied_slot.out then
+						set_status (r, c, unoccupied_slot)
 					end
 				end
 				c := 0
