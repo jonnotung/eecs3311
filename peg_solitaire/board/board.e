@@ -113,18 +113,17 @@ feature -- Auxiliary Commands
 	set_status (r, c: INTEGER; status: SLOT_STATUS)
 			-- Set the status of slot at row 'r' and column 'c' to 'status'.
 		require
-			valid_row: True
-				-- Your task.
-			valid_column: True
-				-- Your task.
+			valid_row:
+				is_valid_row (r)
+			valid_column:
+				is_valid_column (c)
 		do
-			-- Your task.
+			imp.force (status, r, c)
 		ensure
-			slot_set: True
-				-- Your task.
-			slots_not_in_range_unchanged: True
-				-- Your task.
-				-- Hint: Use query 'matches_slots_except'.
+			slot_set:
+				imp.item (r, c).is_equal (status)
+			slots_not_in_range_unchanged:
+				matches_slots_except (Current, r, r, c, c)
 		end
 
 	set_statuses (r1, r2, c1, c2: INTEGER; status: SLOT_STATUS)
@@ -132,37 +131,44 @@ feature -- Auxiliary Commands
 			-- intersection of rows 'r1' to 'r2' and
 			-- columns 'c1' to 'c2'.
 		require
-			valid_rows: True
-				-- Your task.
-			valid_columns: True
-				-- Your task.
-			valid_row_range: True
-				-- Your task.
-			valid_column_range: True
-				-- Your task.
+			valid_rows:
+				is_valid_row (r1) and is_valid_row (r2)
+			valid_columns:
+				is_valid_column (c1) and is_valid_column (c2)
+			valid_row_range:
+				r1 <= r2
+			valid_column_range:
+				c1 <= c2
 		do
-			-- Your task.
+			across r1 |..| r2 as row_iter loop
+				across c1 |..| c2 as col_iter  loop
+					set_status(row_iter.item, col_iter.item, status)
+				end
+			end
 		ensure
-			slots_in_range_set: True
-				-- Your task.
-			slots_not_in_range_unchanged: True
-				-- Your task.
-				-- Hint: Use query 'matches_slots_except'.
+			slots_in_range_set:
+				across r1 |..| r2 as rr  all
+					across c1 |..| c2 as cc  all
+						imp.item (rr.item, cc.item).is_equal (status)
+					end
+				end
+			slots_not_in_range_unchanged:
+				matches_slots_except (Current, r1, r2, c1, c2)
 		end
 
 	parse_slot_map (map: STRING)
 			-- Parses a string of slots
 		require
 			valid_input:
-				map.split ('%N').count = 6 and
+				map.split ('%N').count = number_of_rows and
 				across map.split ('%N') as line_iter
 				all
-					line_iter.item.count = 7 and
+					line_iter.item.count = number_of_columns and
 					across line_iter.item as character_iter
 					all
-						character_iter ~ unavailable_slot.out or else
-						character_iter ~ occupied_slot.out or else
-						character_iter ~ unoccupied_slot.out
+						character_iter.item ~ unavailable_slot.out or else
+						character_iter.item ~ occupied_slot.out or else
+						character_iter.item ~ unoccupied_slot.out
 					end
 				end
 		local
@@ -184,6 +190,13 @@ feature -- Auxiliary Commands
 				end
 				c := 0
 			end
+		ensure
+			correct_slots_assigned:
+				across 1 |..| number_of_rows as rr all
+					across 1 |..| number_of_columns as cc  all
+						imp.item (rr.item, cc.item).out ~ map.at(((rr.item - 1) * (number_of_rows + 1)) + cc.item)
+					end
+				end
 		end
 
 feature -- Auxiliary Queries
@@ -194,28 +207,34 @@ feature -- Auxiliary Queries
 			-- rows 'r1' to 'r2' and columns 'c1' and 'c2'
 			-- match in Current and 'other'.
 		require
-			consistent_row_numbers: True
-				-- Your task.
-			consistent_column_numbers: True
-				-- Your task.
-			valid_rows: True
-				-- Your task.
-			valid_columns: True
-				-- Your task.
-			valid_row_range: True
-				-- Your task.
-			valid_column_range: True
-				-- Your task.
+			consistent_row_numbers:
+				number_of_columns = other.number_of_columns
+			consistent_column_numbers:
+				number_of_rows = other.number_of_rows
+			valid_rows:
+				is_valid_row (r1) and is_valid_row (r2)
+			valid_columns:
+				is_valid_column (c1) and is_valid_column (c2)
+			valid_row_range:
+				r1 <= r2
+			valid_column_range:
+				c1 <= c2
 		do
-			-- Your task.
+			Result :=
+				across 1 |..| number_of_columns as col_iter  all
+					across 1 |..| number_of_rows as  row_iter all
+						(col_iter.item < c1 and col_iter.item > c2) or (row_iter.item < r1 and row_iter.item > r2) implies
+							other.status_of (row_iter.item, col_iter.item).is_equal (status_of (row_iter.item, col_iter.item))
+					end
+				end
 		ensure
-			correct_result: True
-				-- Your task.
-				-- Hint: write two nested across expressions to
-				-- iterate through all slots. Each slot is identified
-				-- by its row and column numbers. If the slot location
-				-- is not witin 'r1', 'r2', 'c1', and 'c2', then
-				-- its value in 'Current' is equal to that in 'other'.
+			correct_result:
+				Result ~ across 1 |..| number_of_columns as col_iter  all
+					across 1 |..| number_of_rows as  row_iter all
+						(col_iter.item < c1 and col_iter.item > c2) or (row_iter.item < r1 and row_iter.item > r2) implies
+							other.status_of (row_iter.item, col_iter.item).is_equal (status_of (row_iter.item, col_iter.item))
+					end
+				end
 		end
 
 	unavailable_slot: UNAVAILABLE_SLOT
@@ -246,81 +265,88 @@ feature -- Queries
 	number_of_rows: INTEGER
 			-- Number of rows in the board of game.
 		do
-			-- Your task.
+			Result := imp.height
 		ensure
-			correct_result: True
-				-- Your task.
+			correct_result:
+				Result = imp.height
 		end
 
 	number_of_columns: INTEGER
 			-- Number of columns in the board of game.
 		do
-			-- Your task.
+			Result := imp.width
 		ensure
-			correct_result: True
-				-- Your task.
+			correct_result:
+				Result = imp.width
 		end
 
 	is_valid_row (r: INTEGER): BOOLEAN
 			-- Is 'r' a valid row number?
 		do
-			-- Your task.
+			Result := r > 0 and r <= number_of_rows
 		ensure
 			correct_result: True
-				-- Your task.
+				Result = (r > 0 and r <= number_of_rows)
 		end
 
 	is_valid_column (c: INTEGER): BOOLEAN
 			-- Is 'x' a valid column number?
 		do
-			-- Your task.
+			Result := c > 0 and c <= number_of_columns
 		ensure
-			correct_result: True
-				-- Your task.
+			correct_result:
+				Result = (c > 0 and c <= number_of_columns)
 		end
 
 	status_of (r, c: INTEGER): SLOT_STATUS
 			-- Is the slot at row 'r' and column 'c'
 			-- unavailable, occupied, or unoccupied?
 		require
-			valid_row: True
-				-- Your task.
-			valid_column: True
-				-- Your task.
+			valid_row:
+				is_valid_row (r)
+			valid_column:
+				is_valid_column (c)
 		do
-			Result := ssa.unavailable_slot
-			-- Your task: the current implementation
-			-- may not be correct.
+			Result := imp.item (r, c)
 		ensure
 			correct_result: True
-				-- Your task.
+				Result ~ imp.item (r, c)
 		end
 
 	number_of_occupied_slots: INTEGER
 			-- Number of slots occupied by pegs on current board.
 		do
-			-- Your task.
-			-- No postcondition is needed for this auxiliary query.
+			across 1 |..| number_of_rows as row_iter  loop
+				across 1 |..| number_of_columns as col_iter loop
+					if status_of (row_iter.item, col_iter.item) ~ occupied_slot then
+						Result := Result + 1
+					end
+				end
+			end
 		end
 
 feature -- Equality
 	is_equal (other: like Current): BOOLEAN
 			-- Is current board equal to 'other'?
 		do
-			-- Your task.
+			Result:= out ~ other.out
 		ensure then
 			correct_result: True
-				-- Your task.
+				Result = (out ~ other.out)
 		end
 
 feature -- Output
 	out: STRING
 			-- String representation of current board.
 		do
-			create Result.make_empty
-			-- Your task: the current implementation
-			-- may not be correct.
-			-- No postcondition is needed for this query.
+			Result := ""
+			across 1 |..| number_of_rows as row_iter loop
+				across 1 |..| number_of_columns as col_iter loop
+					 Result.append_string (status_of (row_iter.item, col_iter.item).out)
+				end
+				Result.append_character ('%N')
+			end
+			Result.remove_tail (1)
 		end
 
 feature {NONE} -- Implementation

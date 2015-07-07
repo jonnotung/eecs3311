@@ -29,8 +29,8 @@ feature -- Constructors
 		do
 			board := new_board
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				board ~ new_board
 		end
 
 	make_easy
@@ -45,67 +45,56 @@ feature -- Constructors
 	make_cross
 			-- Initialize a game with Cross board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			create board.make_cross
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				board ~ bta.templates.cross_board
 		end
 
 	make_plus
 			-- Initialize a game with Plus board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			create board.make_plus
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				board ~ bta.templates.plus_board
 		end
 
 	make_pyramid
 			-- Initialize a game with Pyramid board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			create board.make_pyramid
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				board ~ bta.templates.pyramid_board
 		end
 
 	make_arrow
 			-- Initialize a game with Arrow board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			create board.make_arrow
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				board ~ bta.templates.arrow_board
 		end
+
 
 	make_diamond
 			-- Initialize a game with Diamond board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			create board.make_diamond
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				board ~ bta.templates.diamond_board
 		end
 
 	make_skull
 			-- Initialize a game with Skull board.
 		do
-			make_easy
-			-- Your task: the current implementation
-			-- may not be correct.
+			create board.make_skull
 		ensure
-			board_set: True
-				-- Your task.
+			board_set:
+				board ~ bta.templates.skull_board
 		end
 
 feature -- Commands
