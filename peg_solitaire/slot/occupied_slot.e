@@ -26,10 +26,9 @@ feature -- Output
 	out: STRING
 			-- String representation of current slot.
 		do
-			create Result.make_from_string ("0")
+			create Result.make_from_string ("O")
 		ensure then
 			correct_result:
-				Result ~ "0"
-				-- TODO: Confirm this
+				Result ~ "O"
 		end
 end

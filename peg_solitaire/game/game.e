@@ -100,106 +100,119 @@ feature -- Constructors
 feature -- Commands
 	move_left (r, c: INTEGER)
 		require
-			from_slot_valid_row: True
-				-- Your task.
-			from_slot_valid_column: True
-				-- Your task.
-			middle_slot_valid_column: True
-				-- Your task.
-			to_slot_valid_column: True
-				-- Your task.
-			from_slot_occupied: True
-				-- Your task.
-			middle_slot_occupied: True
-				-- Your task.
-			to_slot_unoccupied: True
-				-- Your task.
+			from_slot_valid_row:
+				board.is_valid_row (r)
+			from_slot_valid_column:
+				board.is_valid_column (c)
+			middle_slot_valid_column:
+				board.is_valid_column (c - 1)
+			to_slot_valid_column:
+				board.is_valid_column (c - 2)
+			from_slot_occupied:
+				board.status_of (r, c) ~ board.occupied_slot
+			middle_slot_occupied:
+				board.status_of (r, c - 1) ~ board.occupied_slot
+			to_slot_unoccupied:
+				board.status_of (r, c - 2) ~ board.unoccupied_slot
 		do
-			-- Your task.
+			board.set_status (r, c, board.unoccupied_slot)
+			board.set_status (r, c - 1, board.unoccupied_slot)
+			board.set_status (r, c - 2, board.occupied_slot)
 		ensure
-			slots_properly_set: True
-				-- Your task.
-			other_slots_unchanged: True
-				-- Your task.
-				-- Hint: Use 'matches_slots_except' feature from BOARD.
+			slots_properly_set:
+				board.status_of (r, c) ~ board.unoccupied_slot and
+				board.status_of (r, c - 1) ~ board.unoccupied_slot and
+				board.status_of (r, c - 2) ~ board.occupied_slot
+			other_slots_unchanged:
+				board.matches_slots_except (old board.deep_twin, r, r, c - 2, c)
 		end
 
 	move_right (r, c: INTEGER)
 		require
-			from_slot_valid_row: True
-				-- Your task.
-			from_slot_valid_column: True
-				-- Your task.
-			middle_slot_valid_column: True
-				-- Your task.
-			to_slot_valid_column: True
-				-- Your task.
-			from_slot_occupied: True
-				-- Your task.
-			middle_slot_occupied: True
-				-- Your task.
-			to_slot_unoccupied: True
-				-- Your task.
+			from_slot_valid_row:
+				board.is_valid_row (r)
+			from_slot_valid_column:
+				board.is_valid_column (c)
+			middle_slot_valid_column:
+				board.is_valid_column (c + 1)
+			to_slot_valid_column:
+				board.is_valid_column (c + 2)
+			from_slot_occupied:
+				board.status_of (r, c) ~ board.occupied_slot
+			middle_slot_occupied:
+				board.status_of (r, c + 1) ~ board.occupied_slot
+			to_slot_unoccupied:
+				board.status_of (r, c + 2) ~ board.unoccupied_slot
 		do
-			-- Your task.
+			board.set_status (r, c, board.unoccupied_slot)
+			board.set_status (r, c + 1, board.unoccupied_slot)
+			board.set_status (r, c + 2, board.occupied_slot)
 		ensure
-			slots_properly_set: True
-				-- Your task.
-			other_slots_unchanged: True
-				-- Your task.
-				-- Hint: Use 'matches_slots_except' from BOARD.
+			slots_properly_set:
+				board.status_of (r, c) ~ board.unoccupied_slot and
+				board.status_of (r, c + 1) ~ board.unoccupied_slot and
+				board.status_of (r, c + 2) ~ board.occupied_slot
+			other_slots_unchanged:
+				board.matches_slots_except (old board.deep_twin, r, r, c, c + 2)
 		end
+
 
 	move_up (r, c: INTEGER)
 		require
-			from_slot_valid_column: True
-				-- Your task.
-			from_slot_valid_row: True
-				-- Your task.
-			middle_slot_valid_row: True
-				-- Your task.
-			to_slot_valid_row: True
-				-- Your task.
-			from_slot_occupied: True
-				-- Your task.
-			middle_slot_occupied: True
-				-- Your task.
-			to_slot_unoccupied: True
-				-- Your task.
+			from_slot_valid_column:
+				board.is_valid_column (c)
+			from_slot_valid_row:
+				board.is_valid_column (r)
+			middle_slot_valid_row:
+				board.is_valid_row (r - 1)
+			to_slot_valid_row:
+				board.is_valid_row (r - 2)
+			from_slot_occupied:
+				board.status_of (r, c) ~ board.occupied_slot
+			middle_slot_occupied:
+				board.status_of (r - 1, c) ~ board.occupied_slot
+			to_slot_unoccupied:
+				board.status_of (r - 2, c) ~ board.unoccupied_slot
 		do
-			-- Your task.
+			board.set_status (r, c, board.unoccupied_slot)
+			board.set_status (r - 1, c, board.unoccupied_slot)
+			board.set_status (r - 2, c, board.occupied_slot)
 		ensure
-			slots_properly_set: True
-				-- Your task.
-			other_slots_unchanged: True
-				-- Your task.
-				-- Hint: Use 'matches_slots_except' from BOARD.
+			slots_properly_set:
+				board.status_of (r, c) ~ board.unoccupied_slot and
+				board.status_of (r - 1, c) ~ board.unoccupied_slot and
+				board.status_of (r - 2, c) ~ board.occupied_slot
+			other_slots_unchanged:
+				board.matches_slots_except (old board.deep_twin, r - 2, r, c, c)
 		end
 
 	move_down (r, c: INTEGER)
 		require
-			from_slot_valid_column: True
-				-- Your task.
-			from_slot_valid_row: True
-				-- Your task.
-			middle_slot_valid_row: True
-				-- Your task.
-			to_slot_valid_row: True
-				-- Your task.
-			from_slot_occupied: True
-				-- Your task.
-			middle_slot_occupied: True
-				-- Your task.
-			to_slot_unoccupied: True
-				-- Your task.
+			from_slot_valid_column:
+				board.is_valid_column (c)
+			from_slot_valid_row:
+				board.is_valid_column (r)
+			middle_slot_valid_row:
+				board.is_valid_row (r + 1)
+			to_slot_valid_row:
+				board.is_valid_row (r + 2)
+			from_slot_occupied:
+				board.status_of (r, c) ~ board.occupied_slot
+			middle_slot_occupied:
+				board.status_of (r + 1, c) ~ board.occupied_slot
+			to_slot_unoccupied:
+				board.status_of (r + 2, c) ~ board.unoccupied_slot
 		do
-			-- Your task.
+			board.set_status (r, c, board.unoccupied_slot)
+			board.set_status (r + 1, c, board.unoccupied_slot)
+			board.set_status (r + 2, c, board.occupied_slot)
 		ensure
-			slots_properly_set: True
-				-- Your task.
-			other_slots_unchanged: True
-				-- Your task.
-				-- Hint: Use 'matches_slots_except' from BOARD.
+			slots_properly_set:
+				board.status_of (r, c) ~ board.unoccupied_slot and
+				board.status_of (r + 1, c) ~ board.unoccupied_slot and
+				board.status_of (r + 2, c) ~ board.occupied_slot
+			other_slots_unchanged:
+				board.matches_slots_except (old board.deep_twin, r, r + 2, c, c)
 		end
 
 feature -- Status Queries
@@ -207,27 +220,30 @@ feature -- Status Queries
 			-- Is the current game 'over'?
 			-- i.e., no further movements are possible.
 		do
-			-- Your task.
+			Result := across 1 |..| board.number_of_rows as row_i  all
+					across 1 |..| board.number_of_columns as col_i  all
+						board.status_of (row_i.item, col_i.item) ~ board.occupied_slot implies not is_movable (row_i.item, col_i.item)
+					end
+				end
 		ensure
-			correct_result: True
-				-- Your task.
-				-- Hint: write two nested across expressions to
-				-- iterate through all slots. Each slot is identified
-				-- by its row and column numbers. If there is any
-				-- slot that is movable, then the result should be true.
+			correct_result:
+				Result = across 1 |..| board.number_of_rows as ri  all
+					across 1 |..| board.number_of_columns as ci  all
+						board.status_of (ri.item, ci.item) ~ board.occupied_slot implies not is_movable (ri.item, ci.item)
+					end
+				end
 		end
 
 	is_won: BOOLEAN
 			-- Has the current game been won?
 			-- i.e., there's only one occupied slot on the board.
 		do
-			-- Your task.
+			Result := board.number_of_occupied_slots = 1
 		ensure
-			game_won_iff_one_occupied_slot_left: True
-				-- Your task.
-				-- Hint: Use 'number_of_occupied_slots' from BOARD.
+			game_won_iff_one_occupied_slot_left:
+				Result implies board.number_of_occupied_slots = 1
 			winning_a_game_means_game_over:
-				-- Your task.
+				Result implies is_over
 		end
 
 feature -- Output
@@ -251,6 +267,38 @@ feature -- Auxiliary Routines
 			else
 				Result := "No"
 			end
+		end
+	is_movable (r, c: INTEGER): BOOLEAN
+		do
+			Result :=
+				is_valid_move (r, r, c, c + 2) or is_valid_move (r, r, c, c - 2) or -- right or left
+				is_valid_move (r, r + 2, c, c) or is_valid_move (r, r - 2, c, c) -- down or up
+		end
+
+	is_valid_move (r1, r2, c1, c2: INTEGER): BOOLEAN
+			-- Returns true if a peg in r1, c1 can be moved to r2, c2
+		require
+			valid_interval:
+				((r1 - r2).abs = 0 and (c1 - c2).abs = 2) or
+				((r1 - r2).abs = 2 and (c1 - c2).abs = 0)
+			valid_start:
+				board.is_valid_column (c1) and  board.is_valid_row (r1) and
+				board.status_of (r1, c1) ~ board.occupied_slot
+		do
+			Result := board.is_valid_column (c2) and board.is_valid_row (r2) and then (
+					(c1 > c2 implies board.status_of(r1, c1 - 1) ~ board.occupied_slot) and
+					(c1 < c2 implies board.status_of(r1, c1 + 1) ~ board.occupied_slot) and
+					(r1 > r2 implies board.status_of(r1 - 1, c1) ~ board.occupied_slot) and
+					(r1 < r2 implies board.status_of(r1 + 1, c1) ~ board.occupied_slot) and
+					board.status_of (r2, c2) ~ board.unoccupied_slot)
+		ensure
+			correct_result:
+				Result implies board.is_valid_column (c2) and board.is_valid_row (r2) and then (
+					(c1 > c2 implies board.status_of(r1, c1 - 1) ~ board.occupied_slot) and
+					(c1 < c2 implies board.status_of(r1, c1 + 1) ~ board.occupied_slot) and
+					(r1 > r2 implies board.status_of(r1 - 1, c1) ~ board.occupied_slot) and
+					(r1 < r2 implies board.status_of(r1 + 1, c1) ~ board.occupied_slot) and
+					board.status_of (r2, c2) ~ board.unoccupied_slot)
 		end
 
 feature -- Board

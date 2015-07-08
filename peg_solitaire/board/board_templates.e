@@ -237,5 +237,5 @@ invariant
 
 	consistent_skull_board_outputs:
 		skull_board.out ~ skull_board_out
-		
+
 end

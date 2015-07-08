@@ -17,8 +17,8 @@ feature -- Commands
 	loses_easy_board
 			-- Lose a cross board.
 		require
-			current_game_is_easy: True
-				-- Your task.
+			current_game_is_easy:
+				game.board ~ templates.easy_board
 		local
 			assertion: BOOLEAN
 		do

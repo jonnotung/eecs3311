@@ -17,6 +17,11 @@ feature -- Constructor
 	make
 		do
 			add_boolean_case (agent test_easy_game_creation)
+--			add_boolean_case (agent test__game_creation)
+--			add_boolean_case (agent test_easy_game_creation)
+--			add_boolean_case (agent test_easy_game_creation)
+--			add_boolean_case (agent move_to_impossible_peg)
+
 		end
 
 feature -- Templates

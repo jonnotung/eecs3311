@@ -53,7 +53,15 @@ feature -- Constructor
 			-- Initialize a Cross board.
 		do
 			make_default
-			parse_slot_map (bta.templates.cross_board_out)
+			parse_slot_map ("[
+				**...**
+				**.O.**
+				..OOO..
+				...O...
+				...O...
+				**...**
+				**...**
+				]")
 		ensure
 			board_set:
 				Current ~ bta.templates.cross_board
@@ -63,7 +71,15 @@ feature -- Constructor
 			-- Initialize a Plus board.
 		do
 			make_default
-			parse_slot_map (bta.templates.plus_board_out)
+			parse_slot_map ( "[
+				**...**
+				**.O.**
+				...O...
+				.OOOOO.
+				...O...
+				**.O.**
+				**...**
+				]")
 		ensure
 			board_set:
 				Current ~ bta.templates.plus_board
@@ -73,7 +89,15 @@ feature -- Constructor
 			-- Initialize a Pyramid board.
 		do
 			make_default
-			parse_slot_map (bta.templates.pyramid_board_out)
+			parse_slot_map ("[
+				**...**
+				**.O.**
+				..OOO..
+				.OOOOO.
+				OOOOOOO
+				**...**
+				**...**
+				]")
 		ensure
 			board_set:
 				Current ~ bta.templates.pyramid_board
@@ -83,7 +107,15 @@ feature -- Constructor
 			-- Initialize a Arrow board.
 		do
 			make_default
-			parse_slot_map (bta.templates.arrow_board_out)
+			parse_slot_map ("[
+				**.O.**
+				**OOO**
+				.OOOOO.
+				...O...
+				...O...
+				**OOO**
+				**OOO**
+				]")
 		ensure
 			board_set:
 				Current ~ bta.templates.arrow_board
@@ -93,7 +125,15 @@ feature -- Constructor
 			-- Initialize a Diamond board.
 		do
 			make_default
-			parse_slot_map (bta.templates.diamond_board_out)
+			parse_slot_map ("[
+				**.O.**
+				**OOO**
+				.OOOOO.
+				OOO.OOO
+				.OOOOO.
+				**OOO**
+				**.O.**
+				]")
 		ensure
 			board_set:
 				Current ~ bta.templates.diamond_board
@@ -103,7 +143,15 @@ feature -- Constructor
 			-- Initialize a Skull board.
 		do
 			make_default
-			parse_slot_map (bta.templates.skull_board_out)
+			parse_slot_map ("[
+				**OOO**
+				**OOO**
+				.OOOOO.
+				.O.O.O.
+				.OOOOO.
+				**OOO**
+				**OOO**
+				]")
 		ensure
 			board_set:
 				Current ~ bta.templates.skull_board
@@ -118,12 +166,12 @@ feature -- Auxiliary Commands
 			valid_column:
 				is_valid_column (c)
 		do
-			imp.force (status, r, c)
+			imp.put (status, r, c)
 		ensure
 			slot_set:
 				imp.item (r, c).is_equal (status)
 			slots_not_in_range_unchanged:
-				matches_slots_except (Current, r, r, c, c)
+				matches_slots_except (old Current.deep_twin, r, r, c, c)
 		end
 
 	set_statuses (r1, r2, c1, c2: INTEGER; status: SLOT_STATUS)
@@ -153,7 +201,7 @@ feature -- Auxiliary Commands
 					end
 				end
 			slots_not_in_range_unchanged:
-				matches_slots_except (Current, r1, r2, c1, c2)
+				matches_slots_except (old Current.deep_twin, r1, r2, c1, c2)
 		end
 
 	parse_slot_map (map: STRING)
@@ -180,11 +228,11 @@ feature -- Auxiliary Commands
 				across line_iterator.item as slot_iterator
 				loop
 					c := c + 1
-					if slot_iterator.item ~ unavailable_slot.out then
+					if slot_iterator.item.out ~ unavailable_slot.out then
 						set_status (r, c, unavailable_slot)
-					elseif  slot_iterator.item ~ occupied_slot.out then
+					elseif  slot_iterator.item.out ~ occupied_slot.out then
 						set_status (r, c, occupied_slot)
-					elseif  slot_iterator.item ~ unoccupied_slot.out then
+					elseif  slot_iterator.item.out ~ unoccupied_slot.out then
 						set_status (r, c, unoccupied_slot)
 					end
 				end
@@ -200,9 +248,7 @@ feature -- Auxiliary Commands
 		end
 
 feature -- Auxiliary Queries
-	matches_slots_except (
-		other: BOARD; r1, r2, c1, c2: INTEGER)
-	: BOOLEAN
+	matches_slots_except (other: BOARD; r1, r2, c1, c2: INTEGER): BOOLEAN
 			-- Do slots outside the intersection of
 			-- rows 'r1' to 'r2' and columns 'c1' and 'c2'
 			-- match in Current and 'other'.
@@ -331,7 +377,7 @@ feature -- Equality
 		do
 			Result:= out ~ other.out
 		ensure then
-			correct_result: True
+			correct_result:
 				Result = (out ~ other.out)
 		end
 
