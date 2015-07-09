@@ -51,59 +51,59 @@ feature -- Commands
 			]"
 			check assertion end
 		ensure
-			finished_and_lost_game:  True
-				-- Your task.
+			finished_and_lost_game:
+				game.is_over and not game.is_won
 		end
 
 	loses_pyramid_game
 		require
-			current_game_is_pyramid:  True
-				-- Your task.
+			current_game_is_pyramid:
+				game.board ~ templates.pyramid_board
 		local
 			assertion: BOOLEAN
 		do
 			-- Your task.
 		ensure
-			finished_and_lost_game:  True
-				-- Your task.
+			finished_and_lost_game:
+				game.is_over and not game.is_won
 		end
 
 	loses_arrow_game
 		require
-			current_game_is_arrow:  True
-				-- Your task.
+			current_game_is_arrow:
+				game.board ~ templates.arrow_board
 		local
 			assertion: BOOLEAN
 		do
 			-- Your task.
 		ensure
-			finished_and_lost_game:  True
-				-- Your task.
+			finished_and_lost_game:
+					game.is_over and not game.is_won
 		end
 
 	loses_diamond_game
 		require
-			current_game_is_diamond:  True
-				-- Your task.
+			current_game_is_diamond:
+				game.board ~ templates.diamond_board
 		local
 			assertion: BOOLEAN
 		do
 			-- Your task.
 		ensure
-			finished_and_lost_game:  True
-				-- Your task.
+			finished_and_lost_game:
+				game.is_over and not game.is_won
 		end
 
 	loses_skull_game
 		require
-			current_game_is_skull:  True
-				-- Your task.
+			current_game_is_skull:
+				game.board ~ templates.skull_board
 		local
 			assertion: BOOLEAN
 		do
 			-- Your task.
 		ensure
-			finished_and_lost_game:  True
-				-- Your task.
+			finished_and_lost_game:
+				game.is_over and not game.is_won
 		end
 end

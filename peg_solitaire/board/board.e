@@ -214,9 +214,9 @@ feature -- Auxiliary Commands
 					line_iter.item.count = number_of_columns and
 					across line_iter.item as character_iter
 					all
-						character_iter.item ~ unavailable_slot.out or else
-						character_iter.item ~ occupied_slot.out or else
-						character_iter.item ~ unoccupied_slot.out
+						character_iter.item.out ~ unavailable_slot.out or else
+						character_iter.item.out ~ occupied_slot.out or else
+						character_iter.item.out ~ unoccupied_slot.out
 					end
 				end
 		local
@@ -242,7 +242,7 @@ feature -- Auxiliary Commands
 			correct_slots_assigned:
 				across 1 |..| number_of_rows as rr all
 					across 1 |..| number_of_columns as cc  all
-						imp.item (rr.item, cc.item).out ~ map.at(((rr.item - 1) * (number_of_rows + 1)) + cc.item)
+						imp.item (rr.item, cc.item).out ~ map.at(((rr.item - 1) * (number_of_rows + 1)) + cc.item).out
 					end
 				end
 		end

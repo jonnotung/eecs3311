@@ -17,6 +17,7 @@ feature -- Constructor
 	make
 		do
 			add_boolean_case (agent test_good_player_wins_easy_board)
+	
 		end
 
 feature -- Tests
@@ -34,4 +35,5 @@ feature -- Tests
 				and player.game.is_won
 			check Result end
 		end
+
 end
