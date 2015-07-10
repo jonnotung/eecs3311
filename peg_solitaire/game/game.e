@@ -282,9 +282,14 @@ feature -- Auxiliary Routines
 			end
 		end
 	is_movable (r, c: INTEGER): BOOLEAN
+			-- Returns true if the slot at r, c is movable in some direction
 		do
 			Result :=
 				is_valid_move (r, r, c, c + 2) or is_valid_move (r, r, c, c - 2) or -- right or left
+				is_valid_move (r, r + 2, c, c) or is_valid_move (r, r - 2, c, c) -- down or up
+		ensure
+			correct_result:
+				Result implies is_valid_move (r, r, c, c + 2) or is_valid_move (r, r, c, c - 2) or -- right or left
 				is_valid_move (r, r + 2, c, c) or is_valid_move (r, r - 2, c, c) -- down or up
 		end
 
