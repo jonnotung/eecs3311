@@ -99,6 +99,9 @@ feature -- Constructors
 
 feature -- Commands
 	move_left (r, c: INTEGER)
+			-- Moves a peg at row r and column c to two slots left
+			-- given that the middle slot is occupied and
+			-- left most is slot is unoccupied
 		require
 			from_slot_valid_row:
 				board.is_valid_row (r)
@@ -128,6 +131,9 @@ feature -- Commands
 		end
 
 	move_right (r, c: INTEGER)
+			-- Moves a peg at row r and column c to two slots right
+			-- given that the middle slot is occupied and
+			-- right most is slot is unoccupied
 		require
 			from_slot_valid_row:
 				board.is_valid_row (r)
@@ -158,6 +164,9 @@ feature -- Commands
 
 
 	move_up (r, c: INTEGER)
+			-- Moves a peg at row r and column c to two slots above
+			-- given that the middle slot is occupied and
+			-- top most is slot is unoccupied
 		require
 			from_slot_valid_column:
 				board.is_valid_column (c)
@@ -187,6 +196,9 @@ feature -- Commands
 		end
 
 	move_down (r, c: INTEGER)
+			-- Moves a peg at row r and column c to two slots below
+			-- given that the middle slot is occupied and
+			-- bottom most is slot is unoccupied
 		require
 			from_slot_valid_column:
 				board.is_valid_column (c)
@@ -227,6 +239,7 @@ feature -- Status Queries
 				end
 		ensure
 			correct_result:
+					-- every occupied slot in the board must not be movable
 				Result = across 1 |..| board.number_of_rows as ri  all
 					across 1 |..| board.number_of_columns as ci  all
 						board.status_of (ri.item, ci.item) ~ board.occupied_slot implies not is_movable (ri.item, ci.item)
@@ -279,6 +292,8 @@ feature -- Auxiliary Routines
 			-- Returns true if a peg in r1, c1 can be moved to r2, c2
 		require
 			valid_interval:
+					-- Determine if the move is strictly in one direction and
+					-- does not involve jumping more than 2 slots
 				((r1 - r2).abs = 0 and (c1 - c2).abs = 2) or
 				((r1 - r2).abs = 2 and (c1 - c2).abs = 0)
 			valid_start:
@@ -293,11 +308,13 @@ feature -- Auxiliary Routines
 					board.status_of (r2, c2) ~ board.unoccupied_slot)
 		ensure
 			correct_result:
+					-- If the destination coordinates are valid and unoccupied, and the middle
+					-- slot is occupied, the result will be true
 				Result implies board.is_valid_column (c2) and board.is_valid_row (r2) and then (
-					(c1 > c2 implies board.status_of(r1, c1 - 1) ~ board.occupied_slot) and
-					(c1 < c2 implies board.status_of(r1, c1 + 1) ~ board.occupied_slot) and
-					(r1 > r2 implies board.status_of(r1 - 1, c1) ~ board.occupied_slot) and
-					(r1 < r2 implies board.status_of(r1 + 1, c1) ~ board.occupied_slot) and
+					(c1 > c2 implies board.status_of(r1, c1 - 1) ~ board.occupied_slot) and -- Determine the direction
+					(c1 < c2 implies board.status_of(r1, c1 + 1) ~ board.occupied_slot) and -- of movement by considering
+					(r1 > r2 implies board.status_of(r1 - 1, c1) ~ board.occupied_slot) and -- the difference of source
+					(r1 < r2 implies board.status_of(r1 + 1, c1) ~ board.occupied_slot) and -- and destination coordinates
 					board.status_of (r2, c2) ~ board.unoccupied_slot)
 		end
 

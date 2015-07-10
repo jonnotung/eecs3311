@@ -56,6 +56,7 @@ feature -- Commands
 		end
 
 	loses_pyramid_board
+			-- Lose a pyramid board.
 		require
 			current_game_is_pyramid:
 				game.board ~ templates.pyramid_board
@@ -203,6 +204,7 @@ feature -- Commands
 		end
 
 	loses_arrow_board
+			-- Lose a cross board.
 		require
 			current_game_is_arrow:
 				game.board ~ templates.arrow_board
@@ -257,6 +259,7 @@ feature -- Commands
 		end
 
 	loses_diamond_board
+			-- Lose a diamond board.
 		require
 			current_game_is_diamond:
 				game.board ~ templates.diamond_board
@@ -309,6 +312,7 @@ feature -- Commands
 		end
 
 	loses_skull_board
+			-- Lose a skull board.
 		require
 			current_game_is_skull:
 				game.board ~ templates.skull_board

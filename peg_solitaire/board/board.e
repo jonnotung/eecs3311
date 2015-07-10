@@ -205,9 +205,10 @@ feature -- Auxiliary Commands
 		end
 
 	parse_slot_map (map: STRING)
-			-- Parses a string of slots
+			-- Parses a string containing slot definitions to the current board
 		require
 			valid_input:
+					-- String dimensions must match the row and column sizs of the current board
 				map.split ('%N').count = number_of_rows and
 				across map.split ('%N') as line_iter
 				all
@@ -240,6 +241,7 @@ feature -- Auxiliary Commands
 			end
 		ensure
 			correct_slots_assigned:
+					-- Each slot in the board must be assigned the slot represented by the specific character in the input map
 				across 1 |..| number_of_rows as rr all
 					across 1 |..| number_of_columns as cc  all
 						imp.item (rr.item, cc.item).out ~ map.at(((rr.item - 1) * (number_of_rows + 1)) + cc.item).out
@@ -275,6 +277,7 @@ feature -- Auxiliary Queries
 				end
 		ensure
 			correct_result:
+					-- Each entry outside the given ranges must have the same status
 				Result ~ across 1 |..| number_of_columns as col_iter  all
 					across 1 |..| number_of_rows as  row_iter all
 						(col_iter.item < c1 and col_iter.item > c2) or (row_iter.item < r1 and row_iter.item > r2) implies
