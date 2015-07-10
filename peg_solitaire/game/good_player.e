@@ -92,33 +92,22 @@ feature -- Commands
 			]"
 			check assertion end
 
+			game.move_left (3, 4)
+			game.move_up (5 , 4)
+			game.move_left (3, 5)
+			game.move_right (3, 2)
 			game.move_down (2, 4)
-			assertion := game.out ~ "[
-			Game is over: No
-			Game is won : No
-			Board Status:
-			**...**
-			**.O.**
-			..OOO..
-			...O...
-			...O...
-			**...**
-			**...**
-			]"
-			check assertion end
-
-			game.move_down (4, 4)
 			assertion := game.out ~ "[
 			Game is over: Yes
 			Game is won : Yes
 			Board Status:
-			***.***
-			***.***
-			***.***
-			***.***
-			***.***
-			***O***
-			*******
+			**...**
+			**...**
+			.......
+			...O...
+			.......
+			**...**
+			**...**
 			]"
 			check assertion end
 		ensure
@@ -134,7 +123,42 @@ feature -- Commands
 		local
 			assertion: BOOLEAN
 		do
-			-- Your task.
+			assertion := game.out ~ "[
+			Game is over: No
+			Game is won : No
+			Board Status:
+			**...**
+			**.O.**
+			...O...
+			.OOOOO.
+			...O...
+			**.O.**
+			**...**
+			]"
+			check assertion end
+
+			game.move_up (3, 4)
+			game.move_up (5, 4)
+			game.move_right (4, 2)
+			game.move_up (4, 4)
+			game.move_left(4, 6)
+			game.move_down(1, 4)
+			game.move_down (3, 4)
+			game.move_up (6, 4)
+
+			assertion := game.out ~ "[
+				Game is over: Yes
+				Game is won : Yes
+				Board Status:
+				**...**
+				**...**
+				.......
+				...O...
+				.......
+				**...**
+				**...**
+				]"
+			check assertion end
 		ensure
 			finished_and_won_game:
 					game.is_won
