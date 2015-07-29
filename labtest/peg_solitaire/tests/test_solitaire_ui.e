@@ -22,10 +22,7 @@ feature
 			add_boolean_case (agent test_single_redo)
 			add_boolean_case (agent test_multiple_undo_redo)
 
-			add_boolean_case (agent test_multiple_undo_redo)
-			add_boolean_case (agent test_multiple_undo_redo)
-			add_boolean_case (agent test_multiple_undo_redo)
-			add_boolean_case (agent test_multiple_undo_redo)
+	
 			add_boolean_case (agent t_33)
 			add_boolean_case (agent t_34)
 			add_boolean_case (agent t_34)

@@ -22,8 +22,6 @@ feature -- history
 	extend_history(new_cmd: COMMAND)
 			-- Remove all operations to the right of the current
 			-- cursor to history, then extend with the new command.
-		local
-			new_history: ARRAYED_LIST[COMMAND]
 		do
 			remove_right
 			history.extend (new_cmd)
@@ -90,6 +88,6 @@ feature {NONE}
 			cursor_is_at_last:
 						not history.is_empty implies history.islast
 			history_is_trimmed:
-						history.index_set.upper = (old history.deep_twin).index
+						history.count = (old history.deep_twin).index
 		end
 end

@@ -106,7 +106,7 @@ feature -- Events
 			end
 		rescue
 			retried := true
-			handle_violation_exception (r, c, r, c - 1, r, c - 2)
+			handle_violation_exception (r, c, r, c + 1, r, c + 2)
 			retry
 		end
 
