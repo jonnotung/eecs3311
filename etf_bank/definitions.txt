@@ -1,0 +1,9 @@
+system bank
+type DAY = 1 .. 31
+type MONTH = 1..12
+type YEAR = 1800..2500
+type DATE = TUPLE[d:DAY; m:MONTH; y:YEAR]
+new(id : STRING)
+deposit(id: STRING; amount: REAL; date: DATE)
+withdraw(id: STRING; amount: REAL; date:DATE)
+transfer(id1:STRING; id2: STRING; amount: REAL; date:DATE)

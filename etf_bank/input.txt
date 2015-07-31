@@ -1,0 +1,6 @@
+new("Bill")
+new("Steve")
+deposit("Bill", 55.0, [01,01,1900])
+deposit("Steve", 33.1,[12,05,1989])
+withdraw("Bill", 6.0,[10,04,2001])
+transfer("Steve", "Bill", 30.01, [31, 12, 2013])
