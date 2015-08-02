@@ -23,6 +23,14 @@
 		<library name="process" location="$ISE_LIBRARY\library\process\process-safe.ecf"/>
 		<library name="time" location="$ISE_LIBRARY\library\time\time-safe.ecf"/>
 		<library name="vision2" location="$ISE_LIBRARY\library\vision2\vision2-safe.ecf"/>
+		<cluster name="generated_code" location=".\generated_code\" recursive="true">
+			<option void_safety="all" syntax="standard">
+			</option>
+		</cluster>
+		<cluster name="root" location=".\root\" recursive="true">
+			<option void_safety="all" syntax="standard">
+			</option>
+		</cluster>
 		<cluster name="static_analyzer" location=".\static_analyzer\" recursive="true">
 			<option void_safety="all" syntax="standard">
 			</option>
@@ -32,14 +40,5 @@
 				<exclude>/.svn$</exclude>
 			</file_rule>
 		</cluster>
-		<cluster name="generated_code" location=".\generated_code\" recursive="true">
-			<option void_safety="all" syntax="standard">
-			</option>
-		</cluster>
-		<cluster name="root" location=".\root\" recursive="true">
-			<option void_safety="all" syntax="standard">
-			</option>
-		</cluster>
 	</target>
 </system>
-

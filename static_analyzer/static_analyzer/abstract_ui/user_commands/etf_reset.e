@@ -6,16 +6,16 @@ note
 
 class
 	ETF_RESET
-inherit 
+inherit
 	ETF_RESET_INTERFACE
 		redefine reset end
 create
 	make
-feature -- command 
+feature -- command
 	reset
     	do
 			-- perform some update on the model state
-			model.default_update
+			model.reset 
 			etf_cmd_container.on_change.notify ([Current])
     	end
 

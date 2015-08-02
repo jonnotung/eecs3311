@@ -6,16 +6,16 @@ note
 
 class
 	ETF_ADD_BOOLEAN_CONSTANT
-inherit 
+inherit
 	ETF_ADD_BOOLEAN_CONSTANT_INTERFACE
 		redefine add_boolean_constant end
 create
 	make
-feature -- command 
+feature -- command
 	add_boolean_constant(c: BOOLEAN)
     	do
 			-- perform some update on the model state
-			model.default_update
+			model.add_boolean_constant(c)
 			etf_cmd_container.on_change.notify ([Current])
     	end
 
