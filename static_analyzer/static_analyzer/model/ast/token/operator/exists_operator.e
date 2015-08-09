@@ -9,6 +9,7 @@ class
 
 inherit
 	UNARY_OPERATOR_INTERFACE
+--	
 
 feature
 	token_value: STRING

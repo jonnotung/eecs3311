@@ -34,12 +34,14 @@ feature -- Setters
 			right := ex
 		end
 
-feature -- Visitor
+feature -- Deferred Implementations
 
-	accept(visitor: EXPRESSION_VISITOR_INTERFACE)
+	is_equal(other: like Current): BOOLEAN
 		do
-			visitor.visit_binary_expression (Current)
+			Result := left ~ other.left and right ~ other.right and operator ~ other.operator
 		end
+
+
 
 feature
 

@@ -5,16 +5,16 @@ note
 	revision: "$Revision$"
 
 class
-	SET_EXPRESSION_CURSOR
+	SET_EXPRESSION_CURSOR[G]
 
 inherit
-	ITERATION_CURSOR[EXPRESSION_INTERFACE]
+	ITERATION_CURSOR[G]
 
 create {SET_EXPRESSION}
 	make
 
 feature {SET_EXPRESSION}
-	make(c: INDEXABLE_ITERATION_CURSOR[EXPRESSION_INTERFACE])
+	make(c: INDEXABLE_ITERATION_CURSOR[G])
 		do
 			cursor := c
 		end
@@ -31,7 +31,7 @@ feature
 			cursor.forth
 		end
 
-	item: EXPRESSION_INTERFACE
+	item: G
 		do
 			Result := cursor.item
 		end
@@ -42,5 +42,5 @@ feature
 		end
 
 feature {NONE}
-	cursor: INDEXABLE_ITERATION_CURSOR[EXPRESSION_INTERFACE]
+	cursor: INDEXABLE_ITERATION_CURSOR[G]
 end

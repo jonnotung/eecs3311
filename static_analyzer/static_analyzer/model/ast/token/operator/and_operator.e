@@ -10,7 +10,11 @@ class
 inherit
 	BINARY_OPERATOR_INTERFACE
 
+
+
+
 feature
 	token_value: STRING
 		attribute Result := "&&" end
+
 end

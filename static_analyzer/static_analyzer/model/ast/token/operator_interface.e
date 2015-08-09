@@ -11,4 +11,6 @@ inherit
 	TOKEN_INTERFACE
 
 
+feature
+
 end

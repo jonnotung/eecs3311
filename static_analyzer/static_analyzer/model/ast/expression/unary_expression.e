@@ -21,13 +21,6 @@ feature -- Constructor
 			operator := op
 		end
 
-feature -- Visitor
-
-	accept(visitor: EXPRESSION_VISITOR_INTERFACE)
-		do
-			visitor.visit_unary_expression (Current)
-		end
-
 feature -- Setters
 
 
@@ -35,6 +28,13 @@ feature -- Setters
 		do
 			exp := ex
 		end
+feature -- Impl
+
+	is_equal(other: like Current): BOOLEAN
+		do
+			Result := exp ~ other.exp and operator ~ other.operator
+		end
+
 feature
 
 	operator: UNARY_OPERATOR_INTERFACE

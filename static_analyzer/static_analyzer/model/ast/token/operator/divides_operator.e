@@ -9,6 +9,7 @@ class
 
 inherit
 	BINARY_OPERATOR_INTERFACE
+	-- Constraint
 
 feature
 	token_value: STRING

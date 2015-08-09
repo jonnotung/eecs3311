@@ -18,33 +18,14 @@ feature
 	make
 		do
 			closed := FALSE
-			create {ARRAYED_LIST[EXPRESSION_INTERFACE]} elements.make (0)
-			add(create {NIL_EXPRESSION})
+			create value.make
 		end
 
-feature -- Visitor
-
-	accept(visitor: EXPRESSION_VISITOR_INTERFACE)
-		do
-			visitor.visit_set_expression (Current)
-		end
 
 feature
---	add(element: EXPRESSION_INTERFACE)
---		require
---			not_closed: not closed
---		local
---			new_elements: like elements
---		do
---			new_elements := strip_last_element(elements)
-
---			new_elements.extend (element)
---			new_elements.extend (create {NIL_EXPRESSION})
---			elements := new_elements
---		end
 	add(element: EXPRESSION_INTERFACE)
 		do
-			elements.extend (element)
+			value.extend (element)
 		end
 
 	close
@@ -59,12 +40,12 @@ feature
 
 	count: INTEGER
 		do
-			Result := elements.count
+			Result := value.count
 		end
 feature
-	new_cursor: SET_EXPRESSION_CURSOR
+	new_cursor: SET_EXPRESSION_CURSOR[EXPRESSION_INTERFACE]
 		do
-			Result := create {SET_EXPRESSION_CURSOR}.make (elements.new_cursor)
+			Result := create {SET_EXPRESSION_CURSOR[EXPRESSION_INTERFACE]}.make (value.new_cursor)
 		end
 
 
@@ -73,20 +54,10 @@ feature
 
 	can_close: BOOLEAN
 		do
-			Result := elements.count > 0
+			Result := value.count > 0
 		end
-feature {NONE}
-	elements: LIST[EXPRESSION_INTERFACE]
-	strip_last_element(e: like elements): like elements
-		do
-			create {ARRAYED_LIST[EXPRESSION_INTERFACE]} Result.make (0)
 
-			across e.index_set.lower |..| (e.index_set.upper - 1)
-			as
-				idx_iter
-			loop
-				Result.extend (e.at (idx_iter.item))
-			end
-		end
+	value: SET_TYPE[TYPE_INTERFACE]
+
 
 end

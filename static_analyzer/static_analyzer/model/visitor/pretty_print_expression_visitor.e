@@ -10,7 +10,6 @@ class
 inherit
 	EXPRESSION_VISITOR_INTERFACE
 	redefine
-		visit,
 		out
 	end
 
@@ -21,17 +20,10 @@ feature
 	make
 		do
 			create s.make_empty
-		end
-
-feature
-
-	visit(expression: EXPRESSION_INTERFACE)
-		do
-			create s.make_empty
 			found_next_input := false
-			expression.accept (Current)
 		end
 
+feature {EXPRESSION_INTERFACE}
 	visit_constant_expression(expression: CONSTANT_EXPRESSION)
 		do
 			s := s + expression.value.out
@@ -41,7 +33,7 @@ feature
 		do
 			s := s + "("
 			expression.left.accept(Current)
-			s := s + expression.operator.out
+			s := s + " " + expression.operator.out + " "
 			expression.right.accept(Current)
 			s := s + ")"
 		end
@@ -49,7 +41,7 @@ feature
 	visit_unary_expression(expression: UNARY_EXPRESSION)
 		do
 			s := s + "("
-			s := s + expression.operator.out
+			s := s + expression.operator.out + " "
 			expression.exp.accept(Current)
 			s := s + ")"
 		end

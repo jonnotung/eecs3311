@@ -9,6 +9,7 @@ class
 
 inherit
 	ASSIGNABLE_TYPE_INTERFACE
+	NON_ENUMERABLE_TYPE_INTERFACE
 
 create
 	make

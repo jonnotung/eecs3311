@@ -8,14 +8,27 @@ deferred class
 	EXPRESSION_VISITOR_INTERFACE
 
 inherit
-	VISITOR_INTERFACE[EXPRESSION_INTERFACE]
+	VISITOR_INTERFACE
 
 feature
-	visit(expression: EXPRESSION_INTERFACE)
+	visit(expr: EXPRESSION_INTERFACE)
 		do
-			expression.accept (Current)
+			if attached {BINARY_EXPRESSION} expr as binary_e then
+				visit_binary_expression (binary_e)
+			elseif attached {UNARY_EXPRESSION} expr as unary_e then
+				visit_unary_expression (unary_e)
+			elseif attached {CONSTANT_EXPRESSION} expr as constant_e then
+				visit_constant_expression (constant_e)
+			elseif attached {SET_EXPRESSION} expr as set_e then
+				visit_set_expression (set_e)
+			elseif attached {NIL_EXPRESSION} expr as nil_e then
+				visit_nil_expression (nil_e)
+			else
+				(create {UNHANDLED_EXPRESSION_EXCEPTION}).raise
+			end
 		end
-		
+
+feature {NONE}
 
 	visit_constant_expression(expression: CONSTANT_EXPRESSION)
 		deferred end

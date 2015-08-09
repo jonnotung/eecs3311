@@ -10,4 +10,8 @@ deferred class
 inherit
 	EXPRESSION_INTERFACE
 
+feature
+	value: TYPE_INTERFACE
+		deferred end
+
 end

@@ -5,9 +5,11 @@ note
 	revision: "$Revision$"
 
 deferred class
-	VISITABLE_INTERFACE[G]
+	VISITABLE_INTERFACE
 
 feature
-	accept(visitor: VISITOR_INTERFACE[G])
-		deferred end
+	accept(visitor: VISITOR_INTERFACE)
+		do
+			visitor.visit (Current)
+		end
 end

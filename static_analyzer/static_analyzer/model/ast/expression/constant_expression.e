@@ -20,13 +20,16 @@ feature
 			set_value (tv)
 		end
 
-feature -- Visitor
+feature
 
-	accept(visitor: EXPRESSION_VISITOR_INTERFACE)
-		do
-			visitor.visit_constant_expression (Current)
-		end
 	value: TYPE_INTERFACE assign set_value
+
+feature
+
+	is_equal(other: like Current): BOOLEAN
+		do
+			Result := value ~ other.value
+		end
 
 feature {NONE}
 

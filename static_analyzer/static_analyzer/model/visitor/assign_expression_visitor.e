@@ -16,6 +16,7 @@ create
 	make
 
 feature
+	-- Stub
 	make
 		do
 
@@ -31,7 +32,7 @@ feature
 		do
 			to_assign := assignor
 		end
-feature
+feature {EXPRESSION_INTERFACE}
 
 
 	visit_constant_expression(expression: CONSTANT_EXPRESSION)
@@ -48,25 +49,27 @@ feature
 
 			if left_failed then
 				if attached {NIL_EXPRESSION} expression.right then
-							expression.right := to_assign.deep_twin
-						else
-							expression.right.accept (Current)
-						end
+					expression.right := to_assign.deep_twin
+				else
+					expression.right.accept (Current)
+				end
 
 			else
 				if attached {NIL_EXPRESSION} expression.left then
-										expression.left := to_assign.deep_twin
-									else
-										expression.left.accept (Current)
-									end
+					expression.left := to_assign.deep_twin
+				else
+					expression.left.accept (Current)
+				end
 			end
 
 
 		rescue
-			if attached {NO_VALID_ASSIGNEE_EXCEPTION} (create {EXCEPTION_MANAGER}).last_exception then
+			if attached {NO_VALID_ASSIGNEE_EXCEPTION} (create {EXCEPTION_MANAGER}).last_exception as lx then
 				if not left_failed then
 					left_failed := true
 					retry
+				else
+					lx.raise
 				end
 			end
 		end
@@ -89,9 +92,30 @@ feature
 	visit_set_expression(expression: SET_EXPRESSION)
 		do
 			if not expression.closed then
-				expression.add (to_assign.deep_twin)
+				if not across expression as iterator
+					some
+						each_set_item_assigned(iterator.item)
+					end	then
+					expression.add (to_assign.deep_twin)
+				end
 			else
 				(create {NO_VALID_ASSIGNEE_EXCEPTION}).raise
+			end
+		end
+
+feature -- Helpers
+	each_set_item_assigned(expression: EXPRESSION_INTERFACE): BOOLEAN
+		local
+			retried: BOOLEAN
+		do
+			if not retried then
+				expression.accept(Current)
+			end
+			Result := not retried
+		rescue
+			if attached {NO_VALID_ASSIGNEE_EXCEPTION} (create {EXCEPTION_MANAGER}).last_exception then
+				retried := true
+				retry
 			end
 		end
 end

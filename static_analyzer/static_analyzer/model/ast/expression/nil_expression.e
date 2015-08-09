@@ -8,11 +8,7 @@ class
 	NIL_EXPRESSION
 
 inherit
-	CONSTANT_EXPRESSION
-	redefine
-		accept,
-		value
-	end
+	EXPRESSION_INTERFACE
 
 feature -- Visitor
 	value: TYPE_INTERFACE
@@ -20,8 +16,11 @@ feature -- Visitor
 			create {NIL_TYPE} Result
 		end
 
-	accept(visitor: EXPRESSION_VISITOR_INTERFACE)
+feature
+
+	is_equal(other: like Current): BOOLEAN
 		do
-			visitor.visit_nil_expression (Current)
+			Result := attached {NIL_TYPE} other
 		end
+
 end

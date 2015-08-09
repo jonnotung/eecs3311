@@ -8,7 +8,15 @@ deferred class
 	EXPRESSION_INTERFACE
 
 inherit
-	VISITABLE_INTERFACE[EXPRESSION_INTERFACE]
+	VISITABLE_INTERFACE
+	undefine
+		is_equal
+	end
+
+feature
+	is_equal(other: like Current): BOOLEAN
+		deferred end
+
 
 
 end
