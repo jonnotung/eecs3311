@@ -30,7 +30,7 @@ feature
 				(create {SET_ENUMERATION_NOT_SPECIFIED_EXCEPTION}).raise
 			else
 				if not set_closed then
-					(create {SET_ENUMERATION_NOT_COMPLETE_EXCEPTION}).raise
+					(create {SET_ENUMERATION_NOT_COMPLETE_EXCEPTION}.make).raise
 				end
 			end
 		end

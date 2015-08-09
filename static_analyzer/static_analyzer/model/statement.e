@@ -286,17 +286,21 @@ feature {NONE} -- Exception Handling
 		local
 			status_msg: STRING
 			exception_manager: EXCEPTION_MANAGER
+			error_msg: STRING
 		do
 			create exception_manager
 			status_msg := "Unknown error"
-
+			error_msg := "Error"
 			if attached {STATEMENT_EXCEPTION} exception_manager.last_exception as exception then
 				status_msg := exception.tag.out
+				if exception.alternate_format then
+					error_msg := error_msg + ":"
+				end
 			--else
 				-- print(raw_exception.tag + "%N" + raw_exception.trace)	
 			end
 
-			set_status("Error (" + status_msg + ").")
+			set_status(error_msg + " (" + status_msg + ").")
 		end
 
 

@@ -20,7 +20,7 @@ feature
 
 	is_equal(other: like Current): BOOLEAN
 		do
-			Result := attached {NIL_TYPE} other
+			Result := attached {NIL_EXPRESSION} other
 		end
 
 end

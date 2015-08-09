@@ -12,6 +12,11 @@ inherit
 	NON_ENUMERABLE_TYPE_INTERFACE
 
 feature
+	is_equal(other: like Current): BOOLEAN
+		do
+			Result := attached {NIL_TYPE} other
+		end
+
 	token_value: STRING
 		attribute Result := "nil" end
 

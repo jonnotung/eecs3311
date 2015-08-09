@@ -9,5 +9,11 @@ deferred class
 
 inherit
 	TOKEN_INTERFACE
+	undefine
+		is_equal
+	end
 
+feature
+	is_equal(other: like Current): BOOLEAN
+		deferred end
 end

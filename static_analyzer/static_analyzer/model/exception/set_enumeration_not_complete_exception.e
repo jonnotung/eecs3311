@@ -10,7 +10,16 @@ class
 inherit
 	STATEMENT_EXCEPTION
 
+create
+	make
+
 feature
+	make
+	do
+		alternate_format := true
+	end
+feature
+
 	error_message:STRING
 		attribute Result := "Set enumeration must be non-empty" end
 

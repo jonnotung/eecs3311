@@ -183,6 +183,7 @@ feature {NONE}
 	evaluate_set (object: EVALUATED_EXPRESSION_INTERFACE): SET_EXPRESSION
 		do
 			Result := convert_to_set_expression (convert_to_arrayed_set (cast_as_set_expr (object)))
+			Result.close
 		end
 
 	evaluate_and (left, right: EVALUATED_EXPRESSION_INTERFACE): CONSTANT_EXPRESSION

@@ -24,6 +24,11 @@ feature
 	value: INTEGER
 
 feature
+
+	is_equal(other: like Current): BOOLEAN
+		do
+			Result := value ~ other.value
+		end
 	token_value: STRING
 		attribute Result := value.out end
 end

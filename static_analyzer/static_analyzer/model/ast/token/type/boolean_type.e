@@ -26,6 +26,11 @@ feature
 
 feature
 
+	is_equal(other: like Current): BOOLEAN
+		do
+			Result := value ~ other.value
+		end
+
 	token_value: STRING
 		attribute
 			if value then

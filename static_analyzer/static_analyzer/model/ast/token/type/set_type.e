@@ -17,7 +17,7 @@ create
 	make
 
 
-feature {SET_EXPRESSION}
+feature
 	make
 		do
 			create {ARRAYED_LIST[EXPRESSION_INTERFACE]} values.make (0)
@@ -40,6 +40,12 @@ feature {SET_EXPRESSION}
 	values: LIST[EXPRESSION_INTERFACE]
 
 feature
+	is_equal(other: like Current): BOOLEAN
+		do
+			Result := other.count = count and then other.values.for_all ((agent (exp: SET_EXPRESSION):BOOLEAN do
+				Result := across values as value_iter  some exp ~ value_iter.item  end
+			end))
+		end
 	token_value: STRING
 		attribute Result := "{?}" end
 

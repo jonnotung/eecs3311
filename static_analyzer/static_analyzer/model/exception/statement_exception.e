@@ -17,6 +17,8 @@ feature
 	tag: IMMUTABLE_STRING_32
 		do Result := error_message end
 
+	alternate_format: BOOLEAN
+	
 feature {NONE}
 	error_message: STRING
 		deferred end
