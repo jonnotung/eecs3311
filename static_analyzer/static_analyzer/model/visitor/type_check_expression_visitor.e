@@ -127,7 +127,7 @@ feature
 			elseif bool_found and not int_found then
 				stack_push ({SET_TYPE [BOOLEAN_TYPE]})
 			else
-				stack_push ({SET_TYPE [TYPE_INTERFACE]})
+				(create {TYPE_CHECK_EXCEPTION}).raise
 			end
 		end
 
