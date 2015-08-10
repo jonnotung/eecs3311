@@ -13,7 +13,7 @@ inherit
 feature
 	validate(type: TYPE[TYPE_INTERFACE]): BOOLEAN
 		do
-			Result := attached {G} type and then type.is_equal ({G})
+			Result := attached {TYPE[G]} type
 		end
 
 	return_type: TYPE[H]

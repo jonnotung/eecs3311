@@ -17,6 +17,6 @@ inherit
 feature
 	validate(left, right: TYPE[TYPE_INTERFACE]): BOOLEAN
 		do
-			Result := unary_validate(left) and then unary_validate(right) and then left ~ right
+			Result := unary_validate(left) and then unary_validate(right)
 		end
 end
