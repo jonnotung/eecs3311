@@ -38,7 +38,8 @@ feature -- Deferred Implementations
 
 	is_equal(other: like Current): BOOLEAN
 		do
-			Result := left ~ other.left and right ~ other.right and operator ~ other.operator
+			Result := left ~ other.left and right ~ other.right and then
+					 attached {like operator} other.operator
 		end
 
 

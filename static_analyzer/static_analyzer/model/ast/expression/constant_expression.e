@@ -28,7 +28,7 @@ feature
 
 	is_equal(other: like Current): BOOLEAN
 		do
-			Result := value ~ other.value
+			Result := attached {like value} other.value and then value ~ other.value
 		end
 
 feature {NONE}

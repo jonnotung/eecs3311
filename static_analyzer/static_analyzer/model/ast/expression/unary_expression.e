@@ -32,7 +32,8 @@ feature -- Impl
 
 	is_equal(other: like Current): BOOLEAN
 		do
-			Result := exp ~ other.exp and operator ~ other.operator
+			Result := exp ~ other.exp and then
+					 attached {like operator} other.operator
 		end
 
 feature

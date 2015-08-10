@@ -42,6 +42,12 @@ feature
 		do
 			Result := value.count
 		end
+
+feature
+	is_equals(other: like Current): BOOLEAN
+		do
+			Result := other.closed = closed and then other.value ~ value
+		end
 feature
 	new_cursor: SET_EXPRESSION_CURSOR[EXPRESSION_INTERFACE]
 		do
