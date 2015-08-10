@@ -164,7 +164,7 @@ feature {NONE}
 			loop
 				Result.add (iter.item)
 			end
-			Result.close
+			Result.force_close
 		end
 
 feature
@@ -204,7 +204,7 @@ feature {NONE}
 			set_l := convert_to_arrayed_set (cast_as_set_expr (left))
 			set_r := convert_to_arrayed_set (cast_as_set_expr (right))
 
-			set_l.symdif (set_r)
+			set_l.subtract (set_r)
 
 			Result := convert_to_set_expression(set_l)
 		end

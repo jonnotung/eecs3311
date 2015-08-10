@@ -40,6 +40,13 @@ feature
 		ensure
 			closed: closed
 		end
+		
+	force_close
+		do
+			closed := TRUE
+		ensure
+			closed: closed
+		end
 
 	count: INTEGER
 		do
