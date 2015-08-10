@@ -1,0 +1,143 @@
+-- {{COMMAND}}
+
+# INT vs INT
+{{COMMAND}}
+add_integer_constant (10)
+add_integer_constant (5)
+!!
+
+# INT vs BOOL
+{{COMMAND}}
+add_integer_constant (10)
+add_boolean_constant (false)
+!!
+
+# INT vs SET[INT]
+{{COMMAND}}
+add_integer_constant (10)
+start_set_enumeration
+add_integer_constant (10)
+add_integer_constant (20)
+end_set_enumeration
+!!
+
+# INT vs SET[BOOL]
+{{COMMAND}}
+add_integer_constant (10)
+start_set_enumeration
+add_boolean_constant (true)
+add_boolean_constant (false)
+add_boolean_constant (false)
+end_set_enumeration
+!!
+
+# INT vs SET[TYPE]
+{{COMMAND}}
+add_integer_constant (10)
+start_set_enumeration
+add_boolean_constant (true)
+add_integer_constant (10)
+end_set_enumeration
+!!
+
+# BOOL vs BOOL
+{{COMMAND}}
+add_boolean_constant (false)
+add_boolean_constant (true)
+!!
+
+# BOOL vs SET[BOOL]
+{{COMMAND}}
+add_boolean_constant (false)
+start_set_enumeration
+add_boolean_constant (true)
+add_boolean_constant (false)
+add_boolean_constant (false)
+end_set_enumeration
+!!
+
+# BOOL vs SET[INT]
+{{COMMAND}}
+add_boolean_constant (false)
+start_set_enumeration
+add_integer_constant (10)
+end_set_enumeration
+!!
+# BOOL vs SET[TYPE]
+{{COMMAND}}
+add_boolean_constant (false)
+start_set_enumeration
+add_boolean_constant (true)
+add_integer_constant (10)
+end_set_enumeration
+!!
+
+
+
+# SET[INT] vs SET[INT]
+{{COMMAND}}
+start_set_enumeration
+add_integer_constant (10)
+add_integer_constant (20)
+add_integer_constant (40)
+end_set_enumeration
+start_set_enumeration
+add_integer_constant (50)
+add_integer_constant (60)
+add_integer_constant (70)
+end_set_enumeration
+!!
+
+
+# SET[INT] vs SET[BOOL]
+{{COMMAND}}
+start_set_enumeration
+add_integer_constant (10)
+add_integer_constant (20)
+add_integer_constant (40)
+end_set_enumeration
+start_set_enumeration
+add_boolean_constant (true)
+add_boolean_constant (false)
+add_boolean_constant (false)
+end_set_enumeration
+!!
+
+
+# SET[INT] vs SET[TYPE]
+{{COMMAND}}
+start_set_enumeration
+add_integer_constant (10)
+add_integer_constant (20)
+add_integer_constant (40)
+end_set_enumeration
+start_set_enumeration
+add_boolean_constant (false)
+add_integer_constant (10)
+end_set_enumeration
+!!
+
+# SET[BOOL] vs SET[TYPE]
+{{COMMAND}}
+start_set_enumeration
+add_boolean_constant (true)
+add_boolean_constant (false)
+add_boolean_constant (false)
+end_set_enumeration
+start_set_enumeration
+add_boolean_constant (false)
+add_integer_constant (10)
+end_set_enumeration
+!!
+
+# SET[TYPE] vs SET[TYPE]
+{{COMMAND}}
+start_set_enumeration
+add_boolean_constant (false)
+add_integer_constant (10)
+end_set_enumeration
+start_set_enumeration
+add_boolean_constant (false)
+add_integer_constant (10)
+end_set_enumeration
+!!
