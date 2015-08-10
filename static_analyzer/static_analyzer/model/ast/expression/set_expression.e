@@ -10,6 +10,9 @@ class
 inherit
 	EVALUATED_EXPRESSION_INTERFACE
 	ITERABLE[EXPRESSION_INTERFACE]
+	undefine
+		is_equal
+	end
 
 create
 	make
@@ -44,7 +47,7 @@ feature
 		end
 
 feature
-	is_equals(other: like Current): BOOLEAN
+	is_equal(other: like Current): BOOLEAN
 		do
 			Result := other.closed = closed and then other.value ~ value
 		end

@@ -42,7 +42,7 @@ feature
 feature
 	is_equal(other: like Current): BOOLEAN
 		do
-			Result := other.count = count and then other.values.for_all ((agent (exp: SET_EXPRESSION):BOOLEAN do
+			Result := other.count = count and then other.values.for_all ((agent (exp: EXPRESSION_INTERFACE):BOOLEAN do
 				Result := across values as value_iter  some exp ~ value_iter.item  end
 			end))
 		end
