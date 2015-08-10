@@ -10,6 +10,7 @@ deferred class
 
 
 feature
+
 	return_type: TYPE[TYPE_INTERFACE]
 		deferred end
 

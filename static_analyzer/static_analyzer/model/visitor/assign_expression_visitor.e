@@ -44,7 +44,6 @@ feature {EXPRESSION_INTERFACE}
 	visit_binary_expression(expression: BINARY_EXPRESSION)
 		local
 			left_failed: BOOLEAN
-			target_expression: EXPRESSION_INTERFACE
 		do
 
 			if left_failed then

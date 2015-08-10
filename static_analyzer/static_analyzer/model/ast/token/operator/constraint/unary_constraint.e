@@ -1,11 +1,11 @@
 note
-	description: "Summary description for {CONSTANT_UNARY_CONSTRAINT}."
+	description: "Summary description for {UNARY_CONSTRAINT}."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
-	CONSTANT_UNARY_CONSTRAINT[G -> TYPE_INTERFACE, H -> TYPE_INTERFACE]
+	UNARY_CONSTRAINT[G -> TYPE_INTERFACE, H -> TYPE_INTERFACE]
 
 inherit
 	UNARY_CONSTRAINT_INTERFACE
@@ -20,6 +20,5 @@ feature
 		do
 			Result := {H}
 		end
-
 
 end

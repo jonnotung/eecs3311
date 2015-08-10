@@ -6,13 +6,12 @@ note
 
 deferred class
 	BINARY_CONSTRAINT_INTERFACE
-	
+
 inherit
 	CONSTRAINT_INTERFACE
 
 feature
 	validate(left, right: TYPE[TYPE_INTERFACE]): BOOLEAN
 		deferred end
-
 
 end
