@@ -130,13 +130,29 @@ add_integer_constant (10)
 end_set_enumeration
 !!
 
+# SET[BOOL] vs SET[BOOL]
+{{COMMAND}}
+start_set_enumeration
+add_boolean_constant (true)
+add_boolean_constant (false)
+add_boolean_constant (false)
+end_set_enumeration
+start_set_enumeration
+add_boolean_constant (true)
+add_boolean_constant (false)
+add_boolean_constant (true)
+end_set_enumeration
+!!
+
 # SET[TYPE] vs SET[TYPE]
 {{COMMAND}}
 start_set_enumeration
 add_boolean_constant (false)
 add_integer_constant (10)
+add_integer_constant (40)
 end_set_enumeration
 start_set_enumeration
+add_boolean_constant (true)
 add_boolean_constant (false)
 add_integer_constant (10)
 end_set_enumeration
