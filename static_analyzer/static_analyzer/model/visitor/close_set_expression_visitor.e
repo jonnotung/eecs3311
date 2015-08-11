@@ -62,6 +62,7 @@ feature
 	visit_set_expression(expression: SET_EXPRESSION)
 		do
 			if not set_closed and not expression.closed then
+				set_found := true
 				stack_push (expression)
 				across expression as iterator
 				loop
