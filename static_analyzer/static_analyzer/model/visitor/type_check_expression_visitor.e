@@ -110,9 +110,10 @@ feature
 	visit_set_expression (expression: SET_EXPRESSION)
 		local
 			type: TYPE [TYPE_INTERFACE]
-			int_found: BOOLEAN
-			bool_found: BOOLEAN
+			type_assigned: BOOLEAN
+
 		do
+			type := {TYPE_INTERFACE}
 			if not expression.closed then
 				(create {EXPRESSION_INCOMPLETE_EXCEPTION}).raise
 			end
@@ -120,17 +121,21 @@ feature
 				expression as set_iterator
 			loop
 				set_iterator.item.accept (Current)
-				type := stack_pop
-				if attached {TYPE[INTEGER_TYPE]} type then
-					int_found := true
-				elseif attached {TYPE[BOOLEAN_TYPE]} type then
-					bool_found := true
+				if type_assigned then
+					if not (stack_pop ~ type) then
+						(create {TYPE_CHECK_EXCEPTION}).raise
+					end
+				else
+					type := stack_pop
+					type_assigned := true
 				end
 			end
-			if int_found and not bool_found then
-				stack_push ({SET_TYPE [INTEGER_TYPE]})
-			elseif bool_found and not int_found then
-				stack_push ({SET_TYPE [BOOLEAN_TYPE]})
+			if attached {TYPE[BOOLEAN_TYPE]} type then
+				stack_push ({SET_TYPE[BOOLEAN_TYPE]})
+			elseif attached {TYPE[INTEGER_TYPE]} type then
+				stack_push({SET_TYPE[BOOLEAN_TYPE]})
+			elseif attached {TYPE[SET_TYPE[TYPE_INTERFACE]]} type then
+				stack_push({SET_TYPE[SET_TYPE[TYPE_INTERFACE]]})
 			else
 				(create {TYPE_CHECK_EXCEPTION}).raise
 			end
