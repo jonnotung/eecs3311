@@ -33,9 +33,9 @@ feature
 			hash_set.put (create {BINARY_CONSTRAINT [INTEGER_TYPE, INTEGER_TYPE]}, {PLUS_OPERATOR})
 			hash_set.put (create {BINARY_CONSTRAINT [INTEGER_TYPE, INTEGER_TYPE]}, {TIMES_OPERATOR})
 
-			hash_set.put (create {BINARY_CONSTRAINT [SET_TYPE[TYPE_INTERFACE], SET_TYPE [TYPE_INTERFACE]]}, {DIFFERENCE_OPERATOR})
-			hash_set.put (create {BINARY_CONSTRAINT [SET_TYPE[TYPE_INTERFACE], SET_TYPE [TYPE_INTERFACE]]}, {UNION_OPERATOR})
-			hash_set.put (create {BINARY_CONSTRAINT [SET_TYPE[TYPE_INTERFACE], SET_TYPE [TYPE_INTERFACE]]}, {INTERSECT_OPERATOR})
+			hash_set.put (create {INPUT_SENSITIVE_BINARY_CONSTRAINT [SET_TYPE[TYPE_INTERFACE]]}, {DIFFERENCE_OPERATOR})
+			hash_set.put (create {INPUT_SENSITIVE_BINARY_CONSTRAINT [SET_TYPE[TYPE_INTERFACE]]}, {UNION_OPERATOR})
+			hash_set.put (create {INPUT_SENSITIVE_BINARY_CONSTRAINT [SET_TYPE[TYPE_INTERFACE]]}, {INTERSECT_OPERATOR})
 
 			hash_set.put (create {UNARY_CONSTRAINT [SET_TYPE[BOOLEAN_TYPE], BOOLEAN_TYPE]}, {EXISTS_OPERATOR})
 			hash_set.put (create {UNARY_CONSTRAINT [SET_TYPE[BOOLEAN_TYPE], BOOLEAN_TYPE]}, {FORALL_OPERATOR})
@@ -76,7 +76,11 @@ feature
 				expression.right.accept (Current)
 				right_type := stack_pop
 				if constraints.validate (left_type, right_type) then
-					stack_push (constraints.return_type)
+					if attached {INPUT_SENSITIVE_BINARY_CONSTRAINT[TYPE_INTERFACE]} constraints then
+						stack_push(left_type)
+					else
+						stack_push (constraints.return_type)
+					end
 				else
 					(create {TYPE_CHECK_EXCEPTION}).raise
 				end
