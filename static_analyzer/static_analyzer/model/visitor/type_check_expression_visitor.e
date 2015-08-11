@@ -133,9 +133,11 @@ feature
 			if attached {TYPE[BOOLEAN_TYPE]} type then
 				stack_push ({SET_TYPE[BOOLEAN_TYPE]})
 			elseif attached {TYPE[INTEGER_TYPE]} type then
-				stack_push({SET_TYPE[BOOLEAN_TYPE]})
-			elseif attached {TYPE[SET_TYPE[TYPE_INTERFACE]]} type then
-				stack_push({SET_TYPE[SET_TYPE[TYPE_INTERFACE]]})
+				stack_push({SET_TYPE[INTEGER_TYPE]})
+			elseif attached {TYPE[SET_TYPE[BOOLEAN_TYPE]]} type then
+				stack_push({SET_TYPE[SET_TYPE[BOOLEAN_TYPE]]})
+			elseif attached {TYPE[SET_TYPE[INTEGER_TYPE]]} type then
+				stack_push({SET_TYPE[SET_TYPE[INTEGER_TYPE]]})
 			else
 				(create {TYPE_CHECK_EXCEPTION}).raise
 			end
