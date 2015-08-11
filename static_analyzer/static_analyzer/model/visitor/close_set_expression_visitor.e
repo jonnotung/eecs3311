@@ -21,8 +21,11 @@ feature
 			set_closed := false
 			pending_inputs := false
 			in_set := false
+			create set_stack.make
 		end
 feature
+
+	set_stack: LINKED_STACK[SET_EXPRESSION]
 	dispatch(expression: EXPRESSION_INTERFACE)
 		do
 			precursor(expression)
@@ -51,25 +54,23 @@ feature
 
 	visit_nil_expression(expression: NIL_EXPRESSION)
 		do
-			if in_set then
+			if not set_stack.is_empty then
 				pending_inputs := true
 			end
 		end
 
 	visit_set_expression(expression: SET_EXPRESSION)
-		local
-			old_in_set: BOOLEAN
 		do
-			old_in_set := in_set
 			if not set_closed and not expression.closed then
-				set_found := true
-				in_set := true
+				stack_push (expression)
 				across expression as iterator
 				loop
-					iterator.item.accept (Current)
+					if not set_closed then
+						iterator.item.accept (Current)
+					end
 				end
-				in_set := old_in_set
-				if not pending_inputs and expression.can_close then
+				(agent stack_pop).call
+				if not pending_inputs and not set_closed and expression.can_close then
 					set_closed := true
 					expression.close
 				end
@@ -80,4 +81,18 @@ feature
 	set_closed: BOOLEAN
 	in_set: BOOLEAN
 	pending_inputs: BOOLEAN
+
+feature
+	stack_push (item: like set_stack.item)
+		do
+			set_stack.put (item)
+		end
+
+	stack_pop: like set_stack.item
+		do
+			Result := set_stack.item
+			set_stack.remove
+		end
+
+
 end

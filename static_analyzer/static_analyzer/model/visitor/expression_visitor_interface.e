@@ -45,4 +45,47 @@ feature {NONE}
 	visit_set_expression(expression: SET_EXPRESSION)
 		deferred end
 
+feature
+	resolve_operator (op: OPERATOR_INTERFACE): TYPE [OPERATOR_INTERFACE]
+		do
+			if attached {AND_OPERATOR} op then
+				Result := {AND_OPERATOR}
+			elseif attached {DIFFERENCE_OPERATOR} op then
+				Result := {DIFFERENCE_OPERATOR}
+			elseif attached {DIVIDES_OPERATOR} op then
+				Result := {DIVIDES_OPERATOR}
+			elseif attached {EQUAL_OPERATOR} op then
+				Result := {EQUAL_OPERATOR}
+			elseif attached {EXISTS_OPERATOR} op then
+				Result := {EXISTS_OPERATOR}
+			elseif attached {FORALL_OPERATOR} op then
+				Result := {FORALL_OPERATOR}
+			elseif attached {GT_OPERATOR} op then
+				Result := {GT_OPERATOR}
+			elseif attached {IMPLIES_OPERATOR} op then
+				Result := {IMPLIES_OPERATOR}
+			elseif attached {INTERSECT_OPERATOR} op then
+				Result := {INTERSECT_OPERATOR}
+			elseif attached {LT_OPERATOR} op then
+				Result := {LT_OPERATOR}
+			elseif attached {MINUS_OPERATOR} op then
+				Result := {MINUS_OPERATOR}
+			elseif attached {NEGATION_OPERATOR} op then
+				Result := {NEGATION_OPERATOR}
+			elseif attached {NEGATIVE_OPERATOR} op then
+				Result := {NEGATIVE_OPERATOR}
+			elseif attached {OR_OPERATOR} op then
+				Result := {OR_OPERATOR}
+			elseif attached {PLUS_OPERATOR} op then
+				Result := {PLUS_OPERATOR}
+			elseif attached {SUM_OPERATOR} op then
+				Result := {SUM_OPERATOR}
+			elseif attached {TIMES_OPERATOR} op then
+				Result := {TIMES_OPERATOR}
+			elseif attached {UNION_OPERATOR} op then
+				Result := {UNION_OPERATOR}
+			else
+				Result := {OPERATOR_INTERFACE}
+			end
+		end
 end
