@@ -9,6 +9,7 @@ class
 
 inherit
 	EXPRESSION_VISITOR_INTERFACE
+	redefine dispatch end
 
 create
 	make
@@ -16,12 +17,19 @@ create
 feature
 	make
 		do
+			set_found := false
 			set_closed := false
 			pending_inputs := false
 			create set_stack.make
 		end
 feature
-
+	dispatch(expression: EXPRESSION_INTERFACE)
+		do
+			precursor(expression)
+			if not set_closed then
+				(create {EXPRESSION_FULLY_SPECIFIED_EXCEPTION}).raise
+			end
+		end
 	set_stack: LINKED_STACK[SET_EXPRESSION]
 
 
@@ -49,7 +57,7 @@ feature
 	visit_set_expression(expression: SET_EXPRESSION)
 		do
 			if not set_closed and not expression.closed then
-
+				set_found := true
 				stack_push (expression)
 				across expression as iterator
 				loop
@@ -73,7 +81,7 @@ feature
 			end
 		end
 feature
-
+	set_found: BOOLEAN
 	set_closed: BOOLEAN
 	pending_inputs: BOOLEAN
 
