@@ -21,14 +21,14 @@ feature
 	make
 		do
 			closed := FALSE
-			create value.make
+			create type.make
 		end
 
 
 feature
 	add(element: EXPRESSION_INTERFACE)
 		do
-			value.extend (element)
+			type.extend (element)
 		end
 
 	close
@@ -40,7 +40,7 @@ feature
 		ensure
 			closed: closed
 		end
-		
+
 	force_close
 		do
 			closed := TRUE
@@ -50,30 +50,32 @@ feature
 
 	count: INTEGER
 		do
-			Result := value.count
+			Result := type.count
 		end
 
 feature
 	is_equal(other: like Current): BOOLEAN
 		do
-			Result := other.closed = closed and then other.value ~ value
+			Result := other.closed = closed and then other.type ~ type
 		end
 feature
 	new_cursor: SET_EXPRESSION_CURSOR[EXPRESSION_INTERFACE]
 		do
-			Result := create {SET_EXPRESSION_CURSOR[EXPRESSION_INTERFACE]}.make (value.new_cursor)
+			Result := create {SET_EXPRESSION_CURSOR[EXPRESSION_INTERFACE]}.make (type.new_cursor)
 		end
 
 
 feature
+	type: SET_TYPE[TYPE_INTERFACE] 
+
 	closed: BOOLEAN
 
 	can_close: BOOLEAN
 		do
-			Result := value.count > 0
+			Result := type.count > 0
 		end
 
-	value: SET_TYPE[TYPE_INTERFACE]
+
 
 
 end

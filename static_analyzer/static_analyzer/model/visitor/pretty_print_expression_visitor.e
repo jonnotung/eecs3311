@@ -26,7 +26,7 @@ feature
 feature {EXPRESSION_INTERFACE}
 	visit_constant_expression(expression: CONSTANT_EXPRESSION)
 		do
-			s := s + expression.value.out
+			s := s + expression.type.out
 		end
 
 	visit_binary_expression(expression: BINARY_EXPRESSION)

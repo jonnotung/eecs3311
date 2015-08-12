@@ -55,9 +55,9 @@ feature
 		local
 			type: TYPE [TYPE_INTERFACE]
 		do
-			if attached {INTEGER_TYPE} expression.value then
+			if attached {INTEGER_TYPE} expression.type then
 				type := {INTEGER_TYPE}
-			elseif attached {BOOLEAN_TYPE} expression.value then
+			elseif attached {BOOLEAN_TYPE} expression.type then
 				type := {BOOLEAN_TYPE}
 			else
 				type := {TYPE_INTERFACE}

@@ -17,26 +17,24 @@ feature
 
 	make(tv: TYPE_INTERFACE)
 		do
-			set_value (tv)
+			set_type (tv)
 		end
 
 feature
 
-	value: TYPE_INTERFACE assign set_value
+	type: TYPE_INTERFACE assign set_type
 
 feature
 
 	is_equal(other: like Current): BOOLEAN
 		do
-			Result := attached {like value} other.value and then value ~ other.value
+			Result := attached {like type} other.type and then type ~ other.type
 		end
 
 feature {NONE}
 
-
-
-	set_value(v: TYPE_INTERFACE)
+	set_type(v: TYPE_INTERFACE)
 		do
-			value := v
+			type := v
 		end
 end

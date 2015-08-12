@@ -191,8 +191,8 @@ feature {NONE}
 			l: BOOLEAN_TYPE
 			r: BOOLEAN_TYPE
 		do
-			l := cast_as_boolean_type (left.value)
-			r := cast_as_boolean_type (right.value)
+			l := cast_as_boolean_type (left.type)
+			r := cast_as_boolean_type (right.type)
 			create {CONSTANT_EXPRESSION} Result.make (create {BOOLEAN_TYPE}.make (l.value and r.value))
 		end
 
@@ -214,8 +214,8 @@ feature {NONE}
 			l: INTEGER_TYPE
 			r: INTEGER_TYPE
 		do
-			l := cast_as_integer_type (left.value)
-			r := cast_as_integer_type (right.value)
+			l := cast_as_integer_type (left.type)
+			r := cast_as_integer_type (right.type)
 			if r.value = 0 then
 				(create {DIVISION_BY_ZERO_EXCEPTION}).raise
 			end
@@ -238,7 +238,7 @@ feature {NONE}
 				set as set_iter
 			loop
 				if not ret then
-					ret := cast_as_boolean_type (cast_as_constant_expr (set_iter.item).value).value
+					ret := cast_as_boolean_type (cast_as_constant_expr (set_iter.item).type).value
 				end
 			end
 			Result := (create {CONSTANT_EXPRESSION}.make (create {BOOLEAN_TYPE}.make (ret)))
@@ -255,7 +255,7 @@ feature {NONE}
 				set as set_iter
 			loop
 				if ret then
-					ret := cast_as_boolean_type (cast_as_constant_expr (set_iter.item).value).value
+					ret := cast_as_boolean_type (cast_as_constant_expr (set_iter.item).type).value
 				end
 			end
 			Result := (create {CONSTANT_EXPRESSION}.make (create {BOOLEAN_TYPE}.make (ret)))
@@ -266,8 +266,8 @@ feature {NONE}
 			l: INTEGER_TYPE
 			r: INTEGER_TYPE
 		do
-			l := cast_as_integer_type (left.value)
-			r := cast_as_integer_type (right.value)
+			l := cast_as_integer_type (left.type)
+			r := cast_as_integer_type (right.type)
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {BOOLEAN_TYPE}.make (l.value > r.value))
 		end
@@ -277,8 +277,8 @@ feature {NONE}
 			l: BOOLEAN_TYPE
 			r: BOOLEAN_TYPE
 		do
-			l := cast_as_boolean_type (left.value)
-			r := cast_as_boolean_type (right.value)
+			l := cast_as_boolean_type (left.type)
+			r := cast_as_boolean_type (right.type)
 			Result := (create {CONSTANT_EXPRESSION}.make (create {BOOLEAN_TYPE}.make (l.value implies r.value)))
 		end
 
@@ -300,8 +300,8 @@ feature {NONE}
 			l: INTEGER_TYPE
 			r: INTEGER_TYPE
 		do
-			l := cast_as_integer_type (left.value)
-			r := cast_as_integer_type (right.value)
+			l := cast_as_integer_type (left.type)
+			r := cast_as_integer_type (right.type)
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {BOOLEAN_TYPE}.make (l.value < r.value))
 		end
@@ -311,8 +311,8 @@ feature {NONE}
 			l: INTEGER_TYPE
 			r: INTEGER_TYPE
 		do
-			l := cast_as_integer_type (left.value)
-			r := cast_as_integer_type (right.value)
+			l := cast_as_integer_type (left.type)
+			r := cast_as_integer_type (right.type)
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {INTEGER_TYPE}.make (l.value - r.value))
 		end
@@ -321,7 +321,7 @@ feature {NONE}
 		local
 			type: BOOLEAN_TYPE
 		do
-			type := cast_as_boolean_type (object.value)
+			type := cast_as_boolean_type (object.type)
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {BOOLEAN_TYPE}.make (not type.value))
 		end
@@ -330,7 +330,7 @@ feature {NONE}
 		local
 			type: INTEGER_TYPE
 		do
-			type := cast_as_integer_type (object.value)
+			type := cast_as_integer_type (object.type)
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {INTEGER_TYPE}.make (type.value * -1))
 		end
@@ -340,8 +340,8 @@ feature {NONE}
 			l: BOOLEAN_TYPE
 			r: BOOLEAN_TYPE
 		do
-			l := cast_as_boolean_type (left.value)
-			r := cast_as_boolean_type (right.value)
+			l := cast_as_boolean_type (left.type)
+			r := cast_as_boolean_type (right.type)
 			Result := (create {CONSTANT_EXPRESSION}.make (create {BOOLEAN_TYPE}.make (l.value or r.value)))
 		end
 
@@ -350,8 +350,8 @@ feature {NONE}
 			l: INTEGER_TYPE
 			r: INTEGER_TYPE
 		do
-			l := cast_as_integer_type (left.value)
-			r := cast_as_integer_type (right.value)
+			l := cast_as_integer_type (left.type)
+			r := cast_as_integer_type (right.type)
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {INTEGER_TYPE}.make (l.value + r.value))
 		end
@@ -366,7 +366,7 @@ feature {NONE}
 			across
 				set as iter
 			loop
-				ret := ret + cast_as_integer_type (cast_as_constant_expr (iter.item).value).value
+				ret := ret + cast_as_integer_type (cast_as_constant_expr (iter.item).type).value
 			end
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {INTEGER_TYPE}.make (ret))
@@ -377,8 +377,8 @@ feature {NONE}
 			l: INTEGER_TYPE
 			r: INTEGER_TYPE
 		do
-			l := cast_as_integer_type (left.value)
-			r := cast_as_integer_type (right.value)
+			l := cast_as_integer_type (left.type)
+			r := cast_as_integer_type (right.type)
 
 			Result := create {CONSTANT_EXPRESSION}.make (create {INTEGER_TYPE}.make (l.value * r.value))
 		end

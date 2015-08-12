@@ -11,7 +11,7 @@ inherit
 	EXPRESSION_INTERFACE
 
 feature
-	value: TYPE_INTERFACE
+	type: TYPE_INTERFACE
 		deferred end
 
 end
